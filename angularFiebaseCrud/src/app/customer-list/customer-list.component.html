@@ -1,30 +1,32 @@
-<!-- <form class="form-inline">
- <input class="form-control" name="searchInput" placeholder="Search" #searchInput="ngModel" [(ngModel)]="searchText">
- <button class="btn btn-outline-primary" (click)="searchText=''">X</button>
-</form> -->
-<table class="table table-md">
-<thead>
-  <th>Full Name</th>
-  <th>E-Mail</th>
-  <th>Mobile</th>
-  <th>Location</th>
-  <th>Actions</th>
-</thead>
-<ng-container *ngFor="let customer of customerArray">
-  <tr class="table-dark">
-    <td>{{customer.fullName}}</td>
-    <td>{{customer.email}}</td>
-    <td>{{customer.mobile}}</td>
-    <td>{{customer.location}}</td>
-    <td>
-      <button class="btn btn-outline-info" (click)="customerService.populateForm(customer)">Edit</button>
-        &nbsp;&nbsp;
-      <button class="btn btn-outline-info" (click)="onDelete(customer.$key)">Delete</button>
-    </td>
-  </tr>
-</ng-container>
-</table>
+<!-- Search Input Box -->
+<form class="form-inline">
+  <input class="form-control" name="searchInput" placeholder="Search" #searchInput="ngModel" [(ngModel)]="searchText" style="width: 80%">
+  <button class="btn btn-primary" (click)="searchText=''">Clear</button>
+ </form>
+ <!-- Customers List Grid View -->
+ <table class="table table-md">
+ <thead>
+   <th>Full Name</th>
+   <th>E-Mail</th>
+   <th>Mobile</th>
+   <th>Location</th>
+   <th>Actions</th>
+ </thead>
+ <ng-container *ngFor="let customer of customerArray">
+   <tr class="table-dark" *ngIf="filterCondition(customer)">
+     <td>{{customer.fullName}}</td>
+     <td>{{customer.email}}</td>
+     <td>{{customer.mobile}}</td>
+     <td>{{customer.location}}</td>
+     <td>
+       <button class="btn btn-outline-info" (click)="customerService.populateForm(customer)">Edit</button>
+         &nbsp;
+       <button class="btn btn-outline-info" (click)="onDelete(customer.$key)">Delete</button>
+     </td>
+   </tr>
+ </ng-container>
+ </table>
 
-<div class="alert alert-danger" *ngIf="showDeletedMessage">
-  Deleted Successfully !!
-</div>
+ <div class="alert alert-danger" *ngIf="showDeletedMessage">
+   Deleted Successfully !!
+ </div>

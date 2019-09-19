@@ -8,11 +8,10 @@ import { CustomerService } from '../shared/customer.service';
   styleUrls: ['./customer-list.component.css']
 })
 export class CustomerListComponent implements OnInit {
-
   constructor(public customerService: CustomerService) { }
   customerArray = [];
   showDeletedMessage: boolean;
-  // searchText: string = "";
+  public searchText: string = '';
 
   ngOnInit() {
     this.customerService.getCustomers().subscribe(
@@ -35,8 +34,8 @@ export class CustomerListComponent implements OnInit {
     }
   }
 
-  // filterCondition(customer) {
-
-  // }
-
+  filterCondition(customer) {
+    return (customer.fullName.toLowerCase().indexOf(this.searchText.toLowerCase()) !== -1 ||
+    customer.location.toLowerCase().indexOf(this.searchText.toLowerCase()) !== -1);
+  }
 }
